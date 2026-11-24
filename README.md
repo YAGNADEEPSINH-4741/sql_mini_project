@@ -5,6 +5,21 @@ A comprehensive, fully functional **Smart Banking Management System** designed t
 
 ---
 
+## 👥 Academic Project Team
+
+**Department:** Department of Computer Science & Engineering  
+**Course:** Relational Database Management Systems (RDBMS)  
+**Academic Year:** 2026 - 2027  
+
+| Sr. No. | Student Full Name | Enrollment Number | Role & Contribution Area |
+| :---: | :--- | :---: | :--- |
+| **1** | **Vaghela Yagnadeepsinh.C** | `260203030002` | Project Architecture, Database Design (3NF) & Master Script Deployment |
+| **2** | **Chudasama Krishnadeepsinh .S** | `260203030001` | PL/SQL Stored Procedures, Functions & Packages (Banking & Loan Packages) |
+| **3** | **Chauhan Jaydip. P** | `260203020035` | Fintech UI/UX Frontend, Bootstrap 5 Layouts & Chart.js Analytics |
+| **4** | **Gohil Jignesh. P** | `260203020034` | Autonomous Triggers, Audit Security, Test Suite & Technical Documentation |
+
+---
+
 ## 📌 Architecture Highlights
 
 - **Database Engine:** Oracle Database 10g / 11g / 19c / 23ai with SQL*Plus.

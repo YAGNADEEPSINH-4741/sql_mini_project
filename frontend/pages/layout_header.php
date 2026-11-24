@@ -115,6 +115,9 @@ $activePage = basename($_SERVER['PHP_SELF'], '.php');
         <header class="topbar">
             <h1 class="page-title"><?= ucfirst(str_replace('_', ' ', $activePage)) ?></h1>
             <div class="topbar-actions">
+                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1" data-bs-toggle="modal" data-bs-target="#projectTeamModal" style="font-size: 0.82rem; font-weight: 500;">
+                    <i class="bi bi-people-fill me-1"></i> Project Team
+                </button>
                 <div class="db-pill">
                     <span class="db-indicator"></span>
                     <span>Oracle 10g / PL/SQL Active</span>

@@ -118,6 +118,34 @@ if (Auth::check()) {
                 Backed by Oracle Database tables <code>ADMIN_USERS</code> with BCrypt hash security.
             </div>
         </div>
+
+        <!-- Project Group Attribution -->
+        <div class="mt-4 pt-3 border-top text-center" style="font-size: 0.78rem; color: #64748b;">
+            <div class="fw-bold text-dark mb-1" style="font-size: 0.82rem;">
+                <i class="bi bi-people-fill text-primary me-1"></i> RDBMS Group Mini Project Team:
+            </div>
+            <div class="row g-1 text-start mt-2" style="font-size: 0.75rem;">
+                <div class="col-12 d-flex justify-content-between px-2 py-1 bg-light rounded mb-1">
+                    <span>1. <strong>Vaghela Yagnadeepsinh.C</strong></span>
+                    <span class="badge bg-secondary font-monospace">260203030002</span>
+                </div>
+                <div class="col-12 d-flex justify-content-between px-2 py-1 bg-light rounded mb-1">
+                    <span>2. <strong>Chudasama Krishnadeepsinh .S</strong></span>
+                    <span class="badge bg-secondary font-monospace">260203030001</span>
+                </div>
+                <div class="col-12 d-flex justify-content-between px-2 py-1 bg-light rounded mb-1">
+                    <span>3. <strong>Chauhan Jaydip. P</strong></span>
+                    <span class="badge bg-secondary font-monospace">260203020035</span>
+                </div>
+                <div class="col-12 d-flex justify-content-between px-2 py-1 bg-light rounded">
+                    <span>4. <strong>Gohil Jignesh. P</strong></span>
+                    <span class="badge bg-secondary font-monospace">260203020034</span>
+                </div>
+            </div>
+            <div class="text-muted mt-2" style="font-size: 0.7rem;">
+                Department of Computer Science & Engineering | AY 2026-2027
+            </div>
+        </div>
     </div>
 </div>
 

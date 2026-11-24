@@ -126,36 +126,55 @@ def build_pdf():
     # =========================================================================
     # SECTION 1: COVER PAGE
     # =========================================================================
-    story.append(Spacer(1, 40))
+    story.append(Spacer(1, 25))
     story.append(Paragraph("SMART BANKING MANAGEMENT SYSTEM", title_style))
     story.append(Paragraph("A Comprehensive Relational Database Architecture & PL/SQL Application", subtitle_style))
-    story.append(HRFlowable(width="80%", thickness=2.5, color=c_accent, spaceBefore=10, spaceAfter=25))
+    story.append(HRFlowable(width="80%", thickness=2.5, color=c_accent, spaceBefore=8, spaceAfter=18))
     
-    story.append(Spacer(1, 20))
+    story.append(Paragraph("<b>ACADEMIC GROUP PROJECT TEAM</b>", ParagraphStyle('GroupHead', parent=body_bold, alignment=1, fontSize=11, textColor=c_primary, spaceAfter=8)))
+    
+    students_data = [
+        [Paragraph("<b>Sr.</b>", table_cell_bold), Paragraph("<b>Student Full Name</b>", table_cell_bold), Paragraph("<b>Enrollment Number</b>", table_cell_bold)],
+        [Paragraph("1", table_cell), Paragraph("<b>Vaghela Yagnadeepsinh.C</b>", table_cell), Paragraph("260203030002", table_cell_bold)],
+        [Paragraph("2", table_cell), Paragraph("<b>Chudasama Krishnadeepsinh .S</b>", table_cell), Paragraph("260203030001", table_cell_bold)],
+        [Paragraph("3", table_cell), Paragraph("<b>Chauhan Jaydip. P</b>", table_cell), Paragraph("260203020035", table_cell_bold)],
+        [Paragraph("4", table_cell), Paragraph("<b>Gohil Jignesh. P</b>", table_cell), Paragraph("260203020034", table_cell_bold)]
+    ]
+    t_students = Table(students_data, colWidths=[35, 250, 165])
+    t_students.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#e2e8f0")),
+        ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#94a3b8")),
+        ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
+        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('LEFTPADDING', (0,0), (-1,-1), 8),
+        ('RIGHTPADDING', (0,0), (-1,-1), 8),
+        ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
+    ]))
+    story.append(t_students)
+    story.append(Spacer(1, 14))
+
     meta_data = [
         [Paragraph("<b>Course:</b>", table_cell_bold), Paragraph("Relational Database Management Systems (RDBMS)", table_cell)],
-        [Paragraph("<b>Project Category:</b>", table_cell_bold), Paragraph("Oracle SQL & Advanced PL/SQL Mini Project", table_cell)],
-        [Paragraph("<b>Student Name:</b>", table_cell_bold), Paragraph("[Student Name Placeholder] (Yagnadeepsinh Vaghela)", table_cell)],
-        [Paragraph("<b>Enrollment No:</b>", table_cell_bold), Paragraph("[Enrollment Number Placeholder] (260203030002)", table_cell)],
+        [Paragraph("<b>Project Category:</b>", table_cell_bold), Paragraph("Oracle SQL & Advanced PL/SQL Group Mini Project", table_cell)],
         [Paragraph("<b>Department:</b>", table_cell_bold), Paragraph("Department of Computer Science & Engineering", table_cell)],
-        [Paragraph("<b>Institution:</b>", table_cell_bold), Paragraph("[College / University Name Placeholder]", table_cell)],
         [Paragraph("<b>Technology Stack:</b>", table_cell_bold), Paragraph("Oracle Database 10g/19c/23ai, SQL*Plus, PL/SQL, PHP (OCI8), Bootstrap 5, Chart.js", table_cell)],
         [Paragraph("<b>Academic Year:</b>", table_cell_bold), Paragraph("2026 - 2027", table_cell)]
     ]
-    t_meta = Table(meta_data, colWidths=[130, 320])
+    t_meta = Table(meta_data, colWidths=[120, 330])
     t_meta.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#f8fafc")),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#cbd5e1")),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 7),
-        ('TOPPADDING', (0,0), (-1,-1), 7),
-        ('LEFTPADDING', (0,0), (-1,-1), 12),
-        ('RIGHTPADDING', (0,0), (-1,-1), 12),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
+        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('LEFTPADDING', (0,0), (-1,-1), 10),
+        ('RIGHTPADDING', (0,0), (-1,-1), 10),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
     ]))
     story.append(t_meta)
     
-    story.append(Spacer(1, 40))
+    story.append(Spacer(1, 20))
     story.append(Paragraph("<b>Primary Architectural Focus:</b> Oracle Relational Schema, ACID Transactions, Atomic Transfers, Autonomous Triggers, Explicit & Parameterized Cursors, Package Architecture, and Audit Trails.", ParagraphStyle('CoverNote', parent=body_style, alignment=1, fontSize=8, textColor=colors.HexColor("#64748b"))))
     story.append(PageBreak())
 
@@ -164,19 +183,23 @@ def build_pdf():
     # =========================================================================
     story.append(Paragraph("DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING", ParagraphStyle('CertDept', parent=title_style, fontSize=14, leading=18)))
     story.append(Paragraph("CERTIFICATE OF COMPLETION", ParagraphStyle('CertHead', parent=title_style, fontSize=18, leading=22, textColor=c_primary)))
-    story.append(HRFlowable(width="100%", thickness=1, color=c_border, spaceBefore=8, spaceAfter=20))
+    story.append(HRFlowable(width="100%", thickness=1, color=c_border, spaceBefore=8, spaceAfter=18))
     
     cert_text = """
-    This is to certify that the mini-project entitled <b>"SMART BANKING MANAGEMENT SYSTEM"</b> submitted by 
-    <b>[Student Name Placeholder]</b> (Enrollment No: <b>[Enrollment Number Placeholder]</b>) in partial fulfillment 
-    for the award of the Degree of Bachelor of Technology in Computer Science & Engineering is a bona fide record 
+    This is to certify that the mini-project entitled <b>"SMART BANKING MANAGEMENT SYSTEM"</b> submitted by the following group of students:
+    <br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<b>1. Vaghela Yagnadeepsinh.C</b> (Enrollment No: <b>260203030002</b>)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<b>2. Chudasama Krishnadeepsinh .S</b> (Enrollment No: <b>260203030001</b>)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<b>3. Chauhan Jaydip. P</b> (Enrollment No: <b>260203020035</b>)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<b>4. Gohil Jignesh. P</b> (Enrollment No: <b>260203020034</b>)<br/><br/>
+    in partial fulfillment for the award of the Degree of Bachelor of Technology in Computer Science & Engineering is a bona fide record 
     of work carried out by them under supervision and guidance.
     <br/><br/>
     The database architecture, stored procedures, packages, triggers, cursors, and application interfaces have 
     been evaluated, tested on Oracle Database, and found satisfactory.
     """
     story.append(Paragraph(cert_text, body_style))
-    story.append(Spacer(1, 60))
+    story.append(Spacer(1, 45))
 
     sig_data = [
         [Paragraph("____________________________<br/><b>Project Guide / Faculty Mentor</b>", table_cell),
@@ -193,9 +216,9 @@ def build_pdf():
     # =========================================================================
     story.append(Paragraph("ACKNOWLEDGEMENT", h1_style))
     story.append(Paragraph(
-        "I express my deepest gratitude to our faculty guide and the Department of Computer Science & Engineering "
+        "We express our deepest gratitude to our faculty guide and the Department of Computer Science & Engineering "
         "for their invaluable guidance, encouragement, and technical suggestions throughout the development of this "
-        "Oracle SQL and PL/SQL mini project. Special thanks are extended to the lab administrators and faculty members "
+        "Oracle SQL and PL/SQL group mini project. Special thanks are extended to the lab administrators and faculty members "
         "who provided access to the Oracle Database development environment and SQL*Plus tooling.", body_style
     ))
     story.append(Spacer(1, 10))
@@ -500,7 +523,32 @@ def build_pdf():
         "exemplary blueprint of industrial relational database engineering.", body_style
     ))
 
-    story.append(Paragraph("17. REFERENCES", h1_style))
+    story.append(Paragraph("17. PROJECT TEAM & WORK BREAKDOWN STRUCTURE (WBS)", h1_style))
+    story.append(Paragraph(
+        "This project was collaboratively designed, engineered, and verified by the following team of students:", body_style
+    ))
+    wbs_data = [
+        [Paragraph("<b>Sr.</b>", table_cell_bold), Paragraph("<b>Student Full Name</b>", table_cell_bold), Paragraph("<b>Enrollment No.</b>", table_cell_bold), Paragraph("<b>Key Responsibilities & Modules</b>", table_cell_bold)],
+        [Paragraph("1", table_cell), Paragraph("<b>Vaghela Yagnadeepsinh.C</b>", table_cell), Paragraph("260203030002", table_cell), Paragraph("Database Architecture, 3NF Normalization, Master Deployment Script (RUN_ALL.SQL), ER Modeling & Transaction Isolation.", table_cell)],
+        [Paragraph("2", table_cell), Paragraph("<b>Chudasama Krishnadeepsinh .S</b>", table_cell), Paragraph("260203030001", table_cell), Paragraph("PL/SQL Stored Procedures, User-Defined Functions, BANKING_PACKAGE & LOAN_PACKAGE Implementation.", table_cell)],
+        [Paragraph("3", table_cell), Paragraph("<b>Chauhan Jaydip. P</b>", table_cell), Paragraph("260203020035", table_cell), Paragraph("Fintech Frontend UI/UX, Bootstrap 5 Layouts, Chart.js Visualizations & AJAX API Routing.", table_cell)],
+        [Paragraph("4", table_cell), Paragraph("<b>Gohil Jignesh. P</b>", table_cell), Paragraph("260203020034", table_cell), Paragraph("Automated Triggers, Audit Security Trail, Comprehensive 12-Case Test Suite & Academic Report Documentation.", table_cell)],
+    ]
+    t_wbs = Table(wbs_data, colWidths=[25, 140, 95, 190])
+    t_wbs.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#e2e8f0")),
+        ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#cbd5e1")),
+        ('VALIGN', (0,0), (-1,-1), 'TOP'),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
+        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('LEFTPADDING', (0,0), (-1,-1), 6),
+        ('RIGHTPADDING', (0,0), (-1,-1), 6),
+        ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
+    ]))
+    story.append(t_wbs)
+    story.append(Spacer(1, 10))
+
+    story.append(Paragraph("18. REFERENCES", h1_style))
     refs = [
         "1. Oracle Corporation. <i>Oracle Database SQL Language Reference, 10g/19c/23ai</i>.",
         "2. Oracle Corporation. <i>Oracle Database PL/SQL Packages and Types Reference</i>.",
