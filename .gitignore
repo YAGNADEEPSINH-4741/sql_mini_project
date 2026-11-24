@@ -1,0 +1,7 @@
+# Environment and sensitive configuration
+.env
+*.log
+*.tmp
+*.bak
+bridge_data.json
+__pycache__/

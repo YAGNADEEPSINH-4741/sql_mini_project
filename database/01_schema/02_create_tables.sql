@@ -1,0 +1,168 @@
+-- ============================================================================
+-- SCRIPT: 02_create_tables.sql
+-- PROJECT: Smart Banking Management System
+-- PURPOSE: Create all 11 normalized relational database tables
+-- ORACLE DB COMPATIBILITY: Oracle 10g, 11g, 12c, 19c, 21c, 23ai
+-- ============================================================================
+
+PROMPT ====================================================================
+PROMPT   Executing 02_create_tables.sql - Creating Core Database Tables
+PROMPT ====================================================================
+
+-- 1. BANK_BRANCHES
+CREATE TABLE BANK_BRANCHES (
+    BRANCH_ID       NUMBER(10)      NOT NULL,
+    BRANCH_NAME     VARCHAR2(100)   NOT NULL,
+    BRANCH_CODE     VARCHAR2(20)    NOT NULL,
+    IFSC_CODE       VARCHAR2(20)    NOT NULL,
+    ADDRESS         VARCHAR2(255)   NOT NULL,
+    CITY            VARCHAR2(50)    NOT NULL,
+    STATE           VARCHAR2(50)    NOT NULL,
+    PIN_CODE        VARCHAR2(10)    NOT NULL,
+    PHONE           VARCHAR2(20),
+    MANAGER_NAME    VARCHAR2(100),
+    CREATED_AT      DATE            DEFAULT SYSDATE NOT NULL
+);
+
+-- 2. CUSTOMERS
+CREATE TABLE CUSTOMERS (
+    CUSTOMER_ID     NUMBER(10)      NOT NULL,
+    FIRST_NAME      VARCHAR2(50)    NOT NULL,
+    LAST_NAME       VARCHAR2(50)    NOT NULL,
+    EMAIL           VARCHAR2(100)   NOT NULL,
+    PHONE           VARCHAR2(20)    NOT NULL,
+    DATE_OF_BIRTH   DATE            NOT NULL,
+    GENDER          VARCHAR2(10)    NOT NULL,
+    ADDRESS         VARCHAR2(255)   NOT NULL,
+    CITY            VARCHAR2(50)    NOT NULL,
+    STATE           VARCHAR2(50)    NOT NULL,
+    PIN_CODE        VARCHAR2(10)    NOT NULL,
+    KYC_STATUS      VARCHAR2(20)    DEFAULT 'Verified' NOT NULL,
+    CREATED_AT      DATE            DEFAULT SYSDATE NOT NULL,
+    UPDATED_AT      DATE            DEFAULT SYSDATE NOT NULL
+);
+
+-- 3. EMPLOYEES
+CREATE TABLE EMPLOYEES (
+    EMPLOYEE_ID     NUMBER(10)      NOT NULL,
+    BRANCH_ID       NUMBER(10)      NOT NULL,
+    FIRST_NAME      VARCHAR2(50)    NOT NULL,
+    LAST_NAME       VARCHAR2(50)    NOT NULL,
+    EMAIL           VARCHAR2(100)   NOT NULL,
+    PHONE           VARCHAR2(20)    NOT NULL,
+    ROLE            VARCHAR2(50)    NOT NULL,
+    SALARY          NUMBER(12,2)    NOT NULL,
+    HIRE_DATE       DATE            NOT NULL,
+    STATUS          VARCHAR2(20)    DEFAULT 'Active' NOT NULL,
+    CREATED_AT      DATE            DEFAULT SYSDATE NOT NULL
+);
+
+-- 4. ACCOUNT_TYPES
+CREATE TABLE ACCOUNT_TYPES (
+    TYPE_ID             NUMBER(5)       NOT NULL,
+    TYPE_NAME           VARCHAR2(50)    NOT NULL,
+    MIN_BALANCE         NUMBER(12,2)    DEFAULT 1000.00 NOT NULL,
+    INTEREST_RATE       NUMBER(5,2)     DEFAULT 3.50 NOT NULL,
+    OVERDRAFT_ALLOWED   VARCHAR2(1)     DEFAULT 'N' NOT NULL,
+    DESCRIPTION         VARCHAR2(255)
+);
+
+-- 5. BANK_ACCOUNTS
+CREATE TABLE BANK_ACCOUNTS (
+    ACCOUNT_ID          NUMBER(10)      NOT NULL,
+    ACCOUNT_NUMBER      VARCHAR2(20)    NOT NULL,
+    CUSTOMER_ID         NUMBER(10)      NOT NULL,
+    BRANCH_ID           NUMBER(10)      NOT NULL,
+    TYPE_ID             NUMBER(5)       NOT NULL,
+    BALANCE             NUMBER(15,2)    DEFAULT 0.00 NOT NULL,
+    OVERDRAFT_LIMIT     NUMBER(12,2)    DEFAULT 0.00 NOT NULL,
+    ACCOUNT_STATUS      VARCHAR2(20)    DEFAULT 'Active' NOT NULL,
+    OPENED_DATE         DATE            DEFAULT SYSDATE NOT NULL,
+    CREATED_AT          DATE            DEFAULT SYSDATE NOT NULL,
+    UPDATED_AT          DATE            DEFAULT SYSDATE NOT NULL
+);
+
+-- 6. TRANSACTIONS
+CREATE TABLE TRANSACTIONS (
+    TRANSACTION_ID      NUMBER(12)      NOT NULL,
+    TRANSACTION_REF     VARCHAR2(30)    NOT NULL,
+    ACCOUNT_ID          NUMBER(10)      NOT NULL,
+    TRANSACTION_TYPE    VARCHAR2(25)    NOT NULL,
+    AMOUNT              NUMBER(15,2)    NOT NULL,
+    BALANCE_AFTER       NUMBER(15,2)    NOT NULL,
+    TRANSACTION_DATE    TIMESTAMP       DEFAULT SYSTIMESTAMP NOT NULL,
+    RELATED_ACCOUNT_ID  NUMBER(10),
+    DESCRIPTION         VARCHAR2(255)   NOT NULL,
+    TRANSACTION_STATUS  VARCHAR2(20)    DEFAULT 'Completed' NOT NULL
+);
+
+-- 7. BENEFICIARIES
+CREATE TABLE BENEFICIARIES (
+    BENEFICIARY_ID          NUMBER(10)      NOT NULL,
+    CUSTOMER_ID             NUMBER(10)      NOT NULL,
+    BENEFICIARY_NAME        VARCHAR2(100)   NOT NULL,
+    BENEFICIARY_ACCOUNT     VARCHAR2(20)    NOT NULL,
+    BANK_NAME               VARCHAR2(100)   NOT NULL,
+    IFSC_CODE               VARCHAR2(20)    NOT NULL,
+    TRANSFER_LIMIT          NUMBER(12,2)    DEFAULT 50000.00 NOT NULL,
+    STATUS                  VARCHAR2(20)    DEFAULT 'Active' NOT NULL,
+    ADDED_DATE              DATE            DEFAULT SYSDATE NOT NULL
+);
+
+-- 8. LOANS
+CREATE TABLE LOANS (
+    LOAN_ID                 NUMBER(10)      NOT NULL,
+    LOAN_NUMBER             VARCHAR2(20)    NOT NULL,
+    CUSTOMER_ID             NUMBER(10)      NOT NULL,
+    BRANCH_ID               NUMBER(10)      NOT NULL,
+    LOAN_TYPE               VARCHAR2(50)    NOT NULL,
+    LOAN_AMOUNT             NUMBER(15,2)    NOT NULL,
+    INTEREST_RATE           NUMBER(5,2)     NOT NULL,
+    TERM_MONTHS             NUMBER(5)       NOT NULL,
+    MONTHLY_EMI             NUMBER(12,2)    NOT NULL,
+    OUTSTANDING_BALANCE     NUMBER(15,2)    NOT NULL,
+    LOAN_STATUS             VARCHAR2(20)    DEFAULT 'Pending' NOT NULL,
+    APPLICATION_DATE        DATE            DEFAULT SYSDATE NOT NULL,
+    APPROVAL_DATE           DATE
+);
+
+-- 9. LOAN_PAYMENTS
+CREATE TABLE LOAN_PAYMENTS (
+    PAYMENT_ID              NUMBER(10)      NOT NULL,
+    PAYMENT_REF             VARCHAR2(30)    NOT NULL,
+    LOAN_ID                 NUMBER(10)      NOT NULL,
+    PAYMENT_AMOUNT          NUMBER(12,2)    NOT NULL,
+    PRINCIPAL_COMPONENT     NUMBER(12,2)    NOT NULL,
+    INTEREST_COMPONENT      NUMBER(12,2)    NOT NULL,
+    PAYMENT_DATE            DATE            DEFAULT SYSDATE NOT NULL,
+    PAYMENT_METHOD          VARCHAR2(50)    DEFAULT 'Online Transfer' NOT NULL,
+    PAYMENT_STATUS          VARCHAR2(20)    DEFAULT 'Completed' NOT NULL
+);
+
+-- 10. AUDIT_LOGS
+CREATE TABLE AUDIT_LOGS (
+    LOG_ID              NUMBER(12)      NOT NULL,
+    TABLE_NAME          VARCHAR2(50)    NOT NULL,
+    OPERATION_TYPE      VARCHAR2(10)    NOT NULL,
+    RECORD_ID           VARCHAR2(50)    NOT NULL,
+    OLD_VALUE           VARCHAR2(4000),
+    NEW_VALUE           VARCHAR2(4000),
+    CHANGED_BY          VARCHAR2(50)    DEFAULT USER NOT NULL,
+    CHANGED_AT          TIMESTAMP       DEFAULT SYSTIMESTAMP NOT NULL,
+    CLIENT_IP           VARCHAR2(50)    DEFAULT '127.0.0.1' NOT NULL
+);
+
+-- 11. ADMIN_USERS
+CREATE TABLE ADMIN_USERS (
+    ADMIN_ID            NUMBER(5)       NOT NULL,
+    USERNAME            VARCHAR2(50)    NOT NULL,
+    PASSWORD_HASH       VARCHAR2(255)   NOT NULL,
+    FULL_NAME           VARCHAR2(100)   NOT NULL,
+    EMAIL               VARCHAR2(100)   NOT NULL,
+    ROLE                VARCHAR2(30)    DEFAULT 'Bank Manager' NOT NULL,
+    STATUS              VARCHAR2(20)    DEFAULT 'Active' NOT NULL,
+    LAST_LOGIN          DATE,
+    CREATED_AT          DATE            DEFAULT SYSDATE NOT NULL
+);
+
+PROMPT [OK] All 11 tables successfully created.
