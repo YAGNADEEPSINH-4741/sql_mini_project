@@ -35,16 +35,16 @@ class NumberedCanvas(canvas.Canvas):
         self.setFillColor(colors.black)
 
         # Running Header
-        self.drawString(54, 800, "Smart Banking Management System - Oracle SQL & PL/SQL Project Report")
+        self.drawString(50, 802, "Smart Banking Management System - Oracle SQL & PL/SQL Academic Report")
         self.setStrokeColor(colors.black)
         self.setLineWidth(0.75)
-        self.line(54, 792, 541, 792)
+        self.line(50, 794, 545, 794)
 
         # Running Footer
         page_str = f"Page {self._pageNumber} of {page_count}"
-        self.drawRightString(541, 35, page_str)
-        self.drawString(54, 35, "Department of Computer Science & Engineering | Academic Year 2026-2027")
-        self.line(54, 45, 541, 45)
+        self.drawRightString(545, 34, page_str)
+        self.drawString(50, 34, "Department of Computer Science & Engineering | Academic Year 2026-2027")
+        self.line(50, 44, 545, 44)
         self.restoreState()
 
 def build_pdf():
@@ -54,79 +54,79 @@ def build_pdf():
         pagesize=A4,
         leftMargin=50,
         rightMargin=50,
-        topMargin=54,
-        bottomMargin=54
+        topMargin=52,
+        bottomMargin=52
     )
 
     styles = getSampleStyleSheet()
     
-    # Monochrome Palette (Pure White & Black)
+    # Monochrome Palette (Pure Black & White)
     c_black = colors.black
     c_white = colors.white
-    c_border = colors.black
-    c_grid = colors.HexColor("#333333")
-    c_header_bg = colors.black
-    c_sub_bg = colors.HexColor("#f2f2f2")
+    c_grid = colors.HexColor("#222222")
 
-    # Typography Styles - Pure Black Text
+    # Typography Styles - Dense, Clean, Publication-Grade
     title_style = ParagraphStyle(
         'CoverTitle', parent=styles['Normal'],
-        fontName='Helvetica-Bold', fontSize=24, leading=30,
-        textColor=c_black, alignment=1, spaceAfter=12
+        fontName='Helvetica-Bold', fontSize=24, leading=29,
+        textColor=c_black, alignment=1, spaceAfter=10
     )
     subtitle_style = ParagraphStyle(
         'CoverSubtitle', parent=styles['Normal'],
-        fontName='Helvetica', fontSize=13, leading=17,
-        textColor=c_black, alignment=1, spaceAfter=20
+        fontName='Helvetica', fontSize=12.5, leading=16,
+        textColor=c_black, alignment=1, spaceAfter=16
     )
     h1_style = ParagraphStyle(
         'SectionHeading', parent=styles['Normal'],
-        fontName='Helvetica-Bold', fontSize=14, leading=18,
-        textColor=c_black, spaceBefore=14, spaceAfter=8, keepWithNext=True
+        fontName='Helvetica-Bold', fontSize=13, leading=16,
+        textColor=c_black, spaceBefore=12, spaceAfter=6, keepWithNext=True
     )
     h2_style = ParagraphStyle(
         'SubSectionHeading', parent=styles['Normal'],
-        fontName='Helvetica-Bold', fontSize=10.5, leading=14,
-        textColor=c_black, spaceBefore=10, spaceAfter=5, keepWithNext=True
+        fontName='Helvetica-Bold', fontSize=10, leading=13,
+        textColor=c_black, spaceBefore=8, spaceAfter=4, keepWithNext=True
     )
     body_style = ParagraphStyle(
         'ReportBody', parent=styles['Normal'],
-        fontName='Helvetica', fontSize=9, leading=13.5,
-        textColor=c_black, spaceAfter=7
+        fontName='Helvetica', fontSize=8.5, leading=12.5,
+        textColor=c_black, spaceAfter=5
     )
     body_bold = ParagraphStyle(
         'ReportBodyBold', parent=body_style,
         fontName='Helvetica-Bold'
     )
-    code_style = ParagraphStyle(
-        'ReportCode', parent=styles['Normal'],
-        fontName='Courier', fontSize=7.5, leading=9.5,
-        textColor=c_black,
-        backColor=colors.HexColor("#f8f8f8"),
-        borderPadding=5, spaceAfter=6, keepWithNext=True
-    )
     table_cell = ParagraphStyle(
         'TableCell', parent=styles['Normal'],
-        fontName='Helvetica', fontSize=7.5, leading=10,
+        fontName='Helvetica', fontSize=7.5, leading=9.5,
         textColor=c_black
     )
     table_cell_bold = ParagraphStyle(
         'TableCellBold', parent=styles['Normal'],
-        fontName='Helvetica-Bold', fontSize=7.5, leading=10,
+        fontName='Helvetica-Bold', fontSize=7.5, leading=9.5,
         textColor=c_black
+    )
+    img_caption = ParagraphStyle(
+        'ImgCaption', parent=styles['Normal'],
+        fontName='Helvetica-Bold', fontSize=9, leading=12,
+        textColor=c_black, spaceBefore=5, spaceAfter=3, keepWithNext=True
+    )
+    img_desc = ParagraphStyle(
+        'ImgDesc', parent=styles['Normal'],
+        fontName='Helvetica', fontSize=8, leading=11.5,
+        textColor=c_black, spaceAfter=8
     )
 
     story = []
 
     # =========================================================================
-    # SECTION 1: COVER PAGE (WHITE & BLACK THEME)
+    # SECTION 1: COVER PAGE (STRICTLY ON PAGE 1)
     # =========================================================================
-    story.append(Spacer(1, 20))
+    story.append(Spacer(1, 15))
     story.append(Paragraph("SMART BANKING MANAGEMENT SYSTEM", title_style))
     story.append(Paragraph("A Comprehensive Relational Database Architecture & PL/SQL Application", subtitle_style))
-    story.append(HRFlowable(width="85%", thickness=2, color=c_black, spaceBefore=6, spaceAfter=16))
+    story.append(HRFlowable(width="90%", thickness=1.5, color=c_black, spaceBefore=4, spaceAfter=14))
     
-    story.append(Paragraph("<b>ACADEMIC GROUP PROJECT TEAM</b>", ParagraphStyle('GroupHead', parent=body_bold, alignment=1, fontSize=11, textColor=c_black, spaceAfter=8)))
+    story.append(Paragraph("<b>ACADEMIC GROUP PROJECT TEAM</b>", ParagraphStyle('GroupHead', parent=body_bold, alignment=1, fontSize=10.5, textColor=c_black, spaceAfter=6)))
     
     students_data = [
         [Paragraph("<b>Sr.</b>", table_cell_bold), Paragraph("<b>Student Full Name</b>", table_cell_bold), Paragraph("<b>Enrollment Number</b>", table_cell_bold)],
@@ -135,19 +135,19 @@ def build_pdf():
         [Paragraph("3", table_cell), Paragraph("<b>Chauhan Jaydip. P</b>", table_cell), Paragraph("260203020035", table_cell_bold)],
         [Paragraph("4", table_cell), Paragraph("<b>Gohil Jignesh. P</b>", table_cell), Paragraph("260203020034", table_cell_bold)]
     ]
-    t_students = Table(students_data, colWidths=[35, 250, 165])
+    t_students = Table(students_data, colWidths=[35, 255, 155])
     t_students.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#f0f0f0")),
         ('BOX', (0,0), (-1,-1), 1, c_black),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
-        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('TOPPADDING', (0,0), (-1,-1), 4),
         ('LEFTPADDING', (0,0), (-1,-1), 8),
         ('RIGHTPADDING', (0,0), (-1,-1), 8),
         ('INNERGRID', (0,0), (-1,-1), 0.5, c_black),
     ]))
     story.append(t_students)
-    story.append(Spacer(1, 14))
+    story.append(Spacer(1, 12))
 
     meta_data = [
         [Paragraph("<b>Course:</b>", table_cell_bold), Paragraph("Relational Database Management Systems (RDBMS)", table_cell)],
@@ -156,26 +156,25 @@ def build_pdf():
         [Paragraph("<b>Technology Stack:</b>", table_cell_bold), Paragraph("Oracle Database 10g/19c/23ai, SQL*Plus, PL/SQL, PHP (OCI8), Bootstrap 5, Chart.js", table_cell)],
         [Paragraph("<b>Academic Year:</b>", table_cell_bold), Paragraph("2026 - 2027", table_cell)]
     ]
-    t_meta = Table(meta_data, colWidths=[120, 330])
+    t_meta = Table(meta_data, colWidths=[115, 330])
     t_meta.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.white),
         ('BOX', (0,0), (-1,-1), 1, c_black),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
-        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('TOPPADDING', (0,0), (-1,-1), 4),
         ('LEFTPADDING', (0,0), (-1,-1), 10),
         ('RIGHTPADDING', (0,0), (-1,-1), 10),
         ('INNERGRID', (0,0), (-1,-1), 0.5, c_black),
     ]))
     story.append(t_meta)
     
-    story.append(Spacer(1, 18))
+    story.append(Spacer(1, 16))
     story.append(Paragraph("<b>Primary Architectural Focus:</b> Oracle Relational Schema, ACID Transactions, Atomic Transfers, Autonomous Triggers, Explicit & Parameterized Cursors, Package Architecture, and Audit Trails.", ParagraphStyle('CoverNote', parent=body_style, alignment=1, fontSize=8, textColor=c_black)))
-    story.append(PageBreak())
+    story.append(PageBreak())  # Only page break: after the cover page!
 
     # =========================================================================
-    # SECTION 2: INTRODUCTION & SYSTEM ARCHITECTURE (STARTS IMMEDIATELY AFTER COVER)
-    # (Certificate, Acknowledgement, and Abstract have been removed as requested)
+    # SECTION 2: INTRODUCTION & PROBLEM STATEMENT (FLOWS NATURALLY)
     # =========================================================================
     story.append(Paragraph("1. INTRODUCTION", h1_style))
     story.append(Paragraph(
@@ -215,16 +214,15 @@ def build_pdf():
         [Paragraph("Concurrency Control", table_cell), Paragraph("Table-level locks or no locking (race conditions)", table_cell), Paragraph("Granular row-level locks via <code>FOR UPDATE</code>", table_cell)],
         [Paragraph("Performance", table_cell), Paragraph("Multiple round-trip network queries", table_cell), Paragraph("Pre-compiled PL/SQL packages and Views", table_cell)]
     ]
-    t_comp = Table(comp_data, colWidths=[100, 180, 200])
+    t_comp = Table(comp_data, colWidths=[95, 175, 175])
     t_comp.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), c_black),
         ('TEXTCOLOR', (0,0), (-1,0), c_white),
         ('GRID', (0,0), (-1,-1), 0.5, c_black),
-        ('TOPPADDING', (0,0), (-1,-1), 5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
+        ('TOPPADDING', (0,0), (-1,-1), 4),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
     ]))
     story.append(t_comp)
-    story.append(PageBreak())
 
     # =========================================================================
     # SECTION 5: TECH STACK, ARCHITECTURE, DATABASE DESIGN
@@ -236,7 +234,6 @@ def build_pdf():
         "<b>Frontend Presentation:</b> HTML5, CSS3 (Custom Fintech Design System), JavaScript (ES6+), Bootstrap 5, Chart.js 4.x.<br/>"
         "<b>Operating Environment:</b> Windows 11 x64, XAMPP Apache Server, Oracle TNS Listener on port 1521.", body_style
     ))
-    story.append(Spacer(1, 10))
 
     story.append(Paragraph("6. RELATIONAL DATABASE DESIGN & 11-TABLE SCHEMA", h1_style))
     story.append(Paragraph(
@@ -249,12 +246,21 @@ def build_pdf():
     # =========================================================================
     story.append(Paragraph("7. ENTITY-RELATIONSHIP (ER) DIAGRAM", h1_style))
     story.append(Paragraph(
-        "The following high-resolution diagram illustrates the relational topology, foreign key associations (1:N), and key attributes:", body_style
+        "The following high-resolution diagram illustrates the relational topology, foreign key associations (1:N), and key attributes across all 11 tables:", body_style
     ))
     er_img_path = r"d:\college\RDBMS\mini_project\documentation\ER_DIAGRAM.png"
     if os.path.exists(er_img_path):
-        story.append(Image(er_img_path, width=480, height=336))
-    story.append(PageBreak())
+        img_er = Image(er_img_path, width=445, height=255)
+        t_er = Table([[img_er]], colWidths=[445])
+        t_er.setStyle(TableStyle([
+            ('BOX', (0,0), (-1,-1), 1, c_black),
+            ('TOPPADDING', (0,0), (-1,-1), 0),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 0),
+            ('LEFTPADDING', (0,0), (-1,-1), 0),
+            ('RIGHTPADDING', (0,0), (-1,-1), 0),
+        ]))
+        story.append(t_er)
+        story.append(Spacer(1, 6))
 
     # =========================================================================
     # SECTION 8: TABLE STRUCTURE EXPLANATION
@@ -274,17 +280,12 @@ def build_pdf():
         ("ADMIN_USERS", "Privileged administrative credentials with BCrypt password hashes and role RBAC.", "ADMIN_ID", "None", "UQ on USERNAME, EMAIL; CHECK on ROLE, STATUS")
     ]
     for t_name, t_desc, t_pk, t_fk, t_ck in tables_meta:
-        story.append(Paragraph(f"<b>Table: {t_name}</b>", h2_style))
-        story.append(Paragraph(f"<b>Purpose:</b> {t_desc}<br/><b>Primary Key:</b> <code>{t_pk}</code> | <b>Foreign Keys:</b> <code>{t_fk}</code><br/><b>Rules & Constraints:</b> {t_ck}", body_style))
-    story.append(PageBreak())
+        story.append(Paragraph(f"• <b>Table {t_name}:</b> {t_desc} [PK: <code>{t_pk}</code> | FK: <code>{t_fk}</code> | Constraints: {t_ck}]", body_style))
 
     # =========================================================================
     # SECTIONS 9 & 10: SQL & PL/SQL CONCEPTS IMPLEMENTED
     # =========================================================================
     story.append(Paragraph("9. ORACLE SQL CONCEPTS IMPLEMENTED", h1_style))
-    story.append(Paragraph(
-        "The project rigorously applies all core categories of Structured Query Language within <code>16_sql_concepts_demonstration.sql</code>:", body_style
-    ))
     sql_concepts = [
         ("DDL (Data Definition Language)", "CREATE TABLE, ALTER TABLE (ADD, MODIFY), DROP TABLE, TRUNCATE TABLE.", "Defines and evolves structural schema objects."),
         ("DML (Data Manipulation Language)", "INSERT INTO, UPDATE ... SET, DELETE FROM with WHERE predicates.", "Manages operational state changes across records."),
@@ -300,11 +301,7 @@ def build_pdf():
     for c_title, c_code, c_purp in sql_concepts:
         story.append(Paragraph(f"• <b>{c_title}:</b> {c_purp} (<i>Examples: {c_code}</i>)", body_style))
 
-    story.append(Spacer(1, 10))
     story.append(Paragraph("10. PL/SQL CONCEPTS IMPLEMENTED", h1_style))
-    story.append(Paragraph(
-        "Procedural Language extensions are central to this project, encapsulating business rules directly on the server:", body_style
-    ))
     plsql_blocks = [
         ("Stored Procedures (10 Created)", "<code>TRANSFER_MONEY</code>, <code>DEPOSIT_MONEY</code>, <code>WITHDRAW_MONEY</code>, <code>CREATE_BANK_ACCOUNT</code>, <code>APPLY_FOR_LOAN</code>, <code>APPROVE_LOAN</code>, <code>PROCESS_LOAN_PAYMENT</code>, <code>CLOSE_BANK_ACCOUNT</code>, etc. Features <code>FOR UPDATE</code> locking and parameter binding."),
         ("User-Defined Functions (6 Created)", "<code>CALCULATE_MONTHLY_EMI</code> (reducing balance amortization), <code>GET_ACCOUNT_BALANCE</code>, <code>CALCULATE_LOAN_INTEREST</code>, <code>GET_TOTAL_TRANSACTIONS</code>, <code>GET_CUSTOMER_ACCOUNT_COUNT</code>, <code>CHECK_ACCOUNT_STATUS</code>."),
@@ -316,15 +313,13 @@ def build_pdf():
     for p_title, p_desc in plsql_blocks:
         story.append(Paragraph(f"• <b>{p_title}:</b> {p_desc}", body_style))
 
-    story.append(PageBreak())
-
     # =========================================================================
     # SECTION 11: CONCEPT MAPPING TABLE
     # =========================================================================
     story.append(Paragraph("11. SQL & PL/SQL CONCEPT MAPPING TABLE", h1_style))
     story.append(Paragraph(
         "The following master table provides an exact mapping of every database concept to its concrete script file, "
-        "syntactical implementation, and business purpose:", body_style
+        "syntactical implementation, and business purpose in the banking engine:", body_style
     ))
 
     mapping_rows = [
@@ -354,47 +349,127 @@ def build_pdf():
         [Paragraph("Dynamic SQL", table_cell), Paragraph("EXECUTE IMMEDIATE ... USING", table_cell), Paragraph("15_advanced_plsql.sql", table_cell), Paragraph("Constructs dynamic SQL queries with bind variables at runtime", table_cell)],
         [Paragraph("Exception Handling", table_cell), Paragraph("e_insufficient_funds, ZERO_DIVIDE", table_cell), Paragraph("10_procedures.sql", table_cell), Paragraph("Catches overdrafts and unexpected errors with clean ROLLBACK", table_cell)]
     ]
-    t_map = Table(mapping_rows, colWidths=[80, 110, 100, 190])
+    t_map = Table(mapping_rows, colWidths=[75, 115, 100, 155])
     t_map.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), c_black),
         ('TEXTCOLOR', (0,0), (-1,0), c_white),
         ('GRID', (0,0), (-1,-1), 0.5, c_black),
-        ('TOPPADDING', (0,0), (-1,-1), 3.5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 3.5),
+        ('TOPPADDING', (0,0), (-1,-1), 3),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
         ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.white, colors.HexColor("#f8f8f8")]),
     ]))
     story.append(t_map)
-    story.append(PageBreak())
 
     # =========================================================================
-    # SECTION 12: APPLICATION MODULES & ACTUAL SCREENSHOTS
+    # SECTION 12: DETAILED APPLICATION MODULES WITH EXTENSIVE EXPLANATIONS
     # =========================================================================
-    story.append(Paragraph("12. WEB APPLICATION MODULES & REAL SCREENSHOTS", h1_style))
+    story.append(Paragraph("12. WEB APPLICATION MODULES & TECHNICAL VISUAL WALKTHROUGH", h1_style))
     story.append(Paragraph(
-        "The following screenshots depict the live, fully functional Smart Banking Management System interface "
-        "captured in real time from the running local application environment:", body_style
+        "This section presents a visual and architectural walkthrough of the running Smart Banking Management System. "
+        "Each figure illustrates a production-grade module captured live from the running application, accompanied by "
+        "its underlying database interaction model, executed PL/SQL routines, and business integrity guarantees:", body_style
     ))
 
-    screenshot_files = [
-        ("01_login.png", "1. Administrative Sign-In Portal (Secure Session & Role-Based Access)"),
-        ("02_dashboard.png", "2. Fintech Executive Dashboard (KPI Metrics, Cash Flow Chart & Ledger)"),
-        ("03_customers.png", "3. Customer Directory & KYC Registry (CUSTOMERS Table)"),
-        ("04_accounts.png", "4. Bank Accounts Portfolio & Procedure-Driven Provisioning"),
-        ("05_transactions.png", "5. Real-Time Transaction Ledger (Double-Entry Bookkeeping)"),
-        ("06_money_transfer.png", "6. Atomic Fund Transfer Modal (ACID Enforced via TRANSFER_MONEY)"),
-        ("07_loans.png", "7. Credit Underwriting, Interactive EMI Calculator & Repayment Ledger"),
-        ("08_reports.png", "8. Analytical Branch Performance & High-Net-Worth Depositor View"),
-        ("09_audit_logs.png", "9. Immutable Database Trigger Audit Trail (AUDIT_LOGS Table)")
+    screenshots_detailed = [
+        (
+            "01_login.png",
+            "Figure 1: Administrative Sign-In Portal & Access Guard",
+            "<b>Functional Workflow:</b> The entry point to the administrative banking portal enforcing secure authentication and session initialization for bank executives and tellers. Features pre-filled demo credential assistants and session persistence.<br/>"
+            "<b>Database Architecture:</b> Queries the <code>ADMIN_USERS</code> table. Passwords are cryptographically verified against <code>PASSWORD_HASH VARCHAR2(255)</code> generated via BCrypt algorithms, preventing plain-text credential leaks.<br/>"
+            "<b>PL/SQL & Business Logic:</b> Verifies admin account status (<code>CHECK (STATUS = 'ACTIVE')</code>). Upon successful authentication, user session metadata is anchored and privilege levels (Super Admin / Manager) are bound to all subsequent transaction calls."
+        ),
+        (
+            "02_dashboard.png",
+            "Figure 2: Executive Fintech Analytics Dashboard & Cash Flow Ledger",
+            "<b>Functional Workflow:</b> Provides top-level executive visibility into key financial health metrics: Total Customer Count, Active Accounts, Cumulative Deposits, Total Cash Withdrawals, Active Loan Facilities, and Total Disbursed Capital. Integrates real-time Chart.js volume trends, account type distribution doughnut visualizers, and a live transaction stream.<br/>"
+            "<b>Database Architecture:</b> Aggregates operational data across <code>CUSTOMERS</code>, <code>BANK_ACCOUNTS</code>, <code>TRANSACTIONS</code>, and <code>LOANS</code>. Queries <code>BRANCH_PERFORMANCE_VIEW</code> and <code>CUSTOMER_ACCOUNT_VIEW</code>.<br/>"
+            "<b>PL/SQL & Business Logic:</b> Executes SQL aggregate functions (<code>SUM()</code>, <code>COUNT()</code>, <code>AVG()</code>) with <code>GROUP BY</code> clauses. Utilizes B-Tree indexes on transaction timestamps and account balances to ensure sub-millisecond calculation speeds without full table scans."
+        ),
+        (
+            "16_project_team_modal.png",
+            "Figure 3: Academic Group Project Team & Technical Responsibility Matrix",
+            "<b>Functional Workflow:</b> Accessible from the top navigation bar throughout the entire application, this modal presents the official academic submission details, university enrollment credentials, and technical module assignments for all four student contributors.<br/>"
+            "<b>Engineering Specializations:</b><br/>"
+            "• <b>Vaghela Yagnadeepsinh.C (260203030002):</b> Team Lead; Database Architecture, 3NF Normalization, Master Deployment Script (<code>RUN_ALL.SQL</code>), and Concurrency Control.<br/>"
+            "• <b>Chudasama Krishnadeepsinh .S (260203030001):</b> PL/SQL Architect; Stored Procedures, Functions, and Modular Package Implementation (<code>BANKING_PACKAGE</code>, <code>LOAN_PACKAGE</code>).<br/>"
+            "• <b>Chauhan Jaydip. P (260203020035):</b> UI/UX Engineer; Fintech Web Application, Bootstrap 5 Templates, Chart.js Visualizations, and AJAX API Routing.<br/>"
+            "• <b>Gohil Jignesh. P (260203020034):</b> QA & Security; Autonomous Triggers, Audit Security Trail, 12-Case Test Suite, and Academic Documentation."
+        ),
+        (
+            "03_customers.png",
+            "Figure 4: Customer Directory & KYC Identification Registry",
+            "<b>Functional Workflow:</b> Comprehensive client repository listing all patrons with full names, verified email addresses, contact numbers, residential addresses, and Know Your Customer (KYC) compliance status. Offers instant search filtering and onboarding triggers.<br/>"
+            "<b>Database Architecture:</b> Directly bound to the <code>CUSTOMERS</code> table. Surrogate primary keys are generated sequentially through Oracle sequence <code>SEQ_CUSTOMERS</code>.<br/>"
+            "<b>PL/SQL & Business Logic:</b> Enforces strict declarative constraints: <code>CHECK (GENDER IN ('MALE','FEMALE','OTHER'))</code> and <code>CHECK (KYC_STATUS IN ('VERIFIED','PENDING','REJECTED'))</code>. Triggers <code>TRG_CUSTOMERS_BIU</code> automatically manage creation and update timestamps."
+        ),
+        (
+            "05_accounts.png",
+            "Figure 5: Bank Accounts Directory & Account Type Management",
+            "<b>Functional Workflow:</b> Repository of depository accounts across all bank branches. Displays unique account numbers, customer names, branch IFSC routing codes, account classifications (Savings, Current, Fixed Deposit, Corporate Salary), available balances, and statuses.<br/>"
+            "<b>Database Architecture:</b> Joins <code>BANK_ACCOUNTS</code> with <code>CUSTOMERS</code>, <code>BANK_BRANCHES</code>, and <code>ACCOUNT_TYPES</code>.<br/>"
+            "<b>PL/SQL & Business Logic:</b> Managed through stored procedure <code>CREATE_BANK_ACCOUNT</code>. Before any insertion commits, trigger <code>TRG_VALIDATE_ACCOUNT_MIN_BAL</code> evaluates the opening deposit against <code>ACCOUNT_TYPES.MIN_BALANCE</code>, aborting below-minimum attempts with application error -20002."
+        ),
+        (
+            "07_transactions.png",
+            "Figure 6: Real-Time Double-Entry Transaction Ledger",
+            "<b>Functional Workflow:</b> Immutable ledger recording all incoming and outgoing financial movements. Features comprehensive filtering by date ranges, transaction types (Deposit, Withdrawal, Transfer Debit, Transfer Credit), and unique reference IDs.<br/>"
+            "<b>Database Architecture:</b> Records rows into <code>TRANSACTIONS</code> linked to <code>BANK_ACCOUNTS</code> via foreign keys. Every entry contains a unique reference generated from sequence <code>SEQ_TRANSACTIONS</code>.<br/>"
+            "<b>PL/SQL & Business Logic:</b> Updated strictly through stored procedures (<code>DEPOSIT_MONEY</code>, <code>WITHDRAW_MONEY</code>, <code>TRANSFER_MONEY</code>). Autonomous trigger <code>TRG_TRANSACTIONS_AUDIT</code> immediately logs every transaction entry into the permanent audit ledger."
+        ),
+        (
+            "06_money_transfer.png",
+            "Figure 7: Two-Phase Atomic Fund Transfer Modal (ACID Enforced)",
+            "<b>Functional Workflow:</b> Financial transfer dialog enabling seamless, real-time money transfers between patron accounts. Features active sender balance display, recipient account validation, and instant ledger commitment.<br/>"
+            "<b>Database Architecture:</b> Performs concurrent updates on <code>BANK_ACCOUNTS</code> and inserts twin debit/credit records into <code>TRANSACTIONS</code>.<br/>"
+            "<b>PL/SQL & Business Logic:</b> Powered by stored procedure <code>TRANSFER_MONEY</code>. Acquires exclusive row-level locks on sender and receiver records via <code>FOR UPDATE</code>. Verifies available balance, enforces account status rules, debits sender, credits receiver, and executes an atomic <code>COMMIT</code>. If any failure occurs, an immediate <code>ROLLBACK</code> executes, ensuring zero partial money transfers."
+        ),
+        (
+            "10_beneficiaries.png",
+            "Figure 8: Beneficiary Management & Payee Limit Directory",
+            "<b>Functional Workflow:</b> Pre-authorized payee management directory allowing customers to register intra-bank and inter-bank transfer recipients with customized per-transaction transfer ceilings.<br/>"
+            "<b>Database Architecture:</b> Interacts with <code>BENEFICIARIES</code> with foreign key <code>CUSTOMER_ID REFERENCES CUSTOMERS(CUSTOMER_ID)</code>.<br/>"
+            "<b>PL/SQL & Business Logic:</b> Invokes procedure <code>CREATE_BENEFICIARY</code>. Enforces <code>CHECK (TRANSFER_LIMIT > 0)</code>. Beneficiary deletions are captured and archived into <code>AUDIT_LOGS</code> via trigger <code>TRG_AUDIT_DELETE</code>."
+        ),
+        (
+            "12_loans.png",
+            "Figure 9: Credit Facility Underwriting, EMI Calculator & Repayment Ledger",
+            "<b>Functional Workflow:</b> Comprehensive credit management interface displaying loan applications (Home, Personal, Auto, Education, Commercial), interest rates, tenure terms, monthly EMIs, and underwriting approval/rejection workflows.<br/>"
+            "<b>Database Architecture:</b> Relies on <code>LOANS</code> and <code>LOAN_PAYMENTS</code> tables linked to <code>CUSTOMERS</code> and <code>BANK_BRANCHES</code>.<br/>"
+            "<b>PL/SQL & Business Logic:</b> Underwritten via <code>LOAN_PACKAGE.APPLY_FOR_LOAN</code> and <code>LOAN_PACKAGE.APPROVE_LOAN</code>. Monthly installments are calculated using user-defined function <code>CALCULATE_MONTHLY_EMI</code> based on reducing balance amortization formulas: EMI = [P * r * (1+r)^n] / [(1+r)^n - 1]."
+        ),
+        (
+            "14_reports.png",
+            "Figure 10: Analytical Branch Performance & High-Net-Worth Depositor View",
+            "<b>Functional Workflow:</b> Business intelligence reporting module aggregating multi-branch operational efficiency, identifying top-tier High Net Worth (HNI) depositors, and supporting direct CSV and printable statement generation.<br/>"
+            "<b>Database Architecture:</b> Directly queries relational views <code>BRANCH_PERFORMANCE_VIEW</code> and <code>HIGH_VALUE_CUSTOMERS_VIEW</code>, as well as materialized view <code>MV_BRANCH_SUMMARY</code>.<br/>"
+            "<b>PL/SQL & Business Logic:</b> Demonstrates multi-table joins (INNER, LEFT OUTER), correlated subqueries, and grouping sets. Pre-computes heavy branch analytics within <code>MV_BRANCH_SUMMARY</code> to eliminate costly repeated calculations over large transactional volumes."
+        ),
+        (
+            "15_audit_logs.png",
+            "Figure 11: Immutable Database Trigger Audit Trail & Compliance Ledger",
+            "<b>Functional Workflow:</b> Forensic compliance interface displaying the chronological security audit trail. Captures timestamp, targeted table, operation type (INSERT, UPDATE, DELETE), record ID, and exact pre-modification and post-modification values.<br/>"
+            "<b>Database Architecture:</b> Reads from the <code>AUDIT_LOGS</code> table populated autonomously by row-level triggers.<br/>"
+            "<b>PL/SQL & Business Logic:</b> Populated by database triggers <code>TRG_ACCOUNTS_AUDIT</code>, <code>TRG_TRANSACTIONS_AUDIT</code>, and <code>TRG_AUDIT_DELETE</code>. Leverages <code>:OLD</code> and <code>:NEW</code> pseudorecords with <code>PRAGMA AUTONOMOUS_TRANSACTION</code>, guaranteeing that audit logs persist independently even if the parent business transaction encounters a rollback."
+        )
     ]
 
-    for fname, caption in screenshot_files:
+    for fname, caption, desc in screenshots_detailed:
         fpath = os.path.join(r"d:\college\RDBMS\mini_project\documentation\screenshots", fname)
         if os.path.exists(fpath):
-            story.append(Paragraph(f"<b>{caption}</b>", h2_style))
-            story.append(Image(fpath, width=470, height=292))
-            story.append(Spacer(1, 8))
-
-    story.append(PageBreak())
+            img = Image(fpath, width=445, height=215)
+            t_box = Table([[img]], colWidths=[445])
+            t_box.setStyle(TableStyle([
+                ('BOX', (0,0), (-1,-1), 1, c_black),
+                ('TOPPADDING', (0,0), (-1,-1), 0),
+                ('BOTTOMPADDING', (0,0), (-1,-1), 0),
+                ('LEFTPADDING', (0,0), (-1,-1), 0),
+                ('RIGHTPADDING', (0,0), (-1,-1), 0),
+            ]))
+            story.append(Paragraph(caption, img_caption))
+            story.append(t_box)
+            story.append(Spacer(1, 3))
+            story.append(Paragraph(desc, img_desc))
+            story.append(Spacer(1, 4))
 
     # =========================================================================
     # SECTION 13: TESTING AND VERIFICATION RESULTS
@@ -420,17 +495,17 @@ def build_pdf():
         [Paragraph("11", table_cell), Paragraph("Trigger Audit Capture", table_cell), Paragraph("DML executed on financial tables", table_cell), Paragraph("AUDIT_LOGS table captures user, IP, and values", table_cell), Paragraph("<b>PASS</b>", table_cell)],
         [Paragraph("12", table_cell), Paragraph("Transaction Rollback", table_cell), Paragraph("Failure during multi-step operation", table_cell), Paragraph("ROLLBACK executed; zero phantom side effects", table_cell), Paragraph("<b>PASS</b>", table_cell)]
     ]
-    t_test = Table(test_rows, colWidths=[20, 110, 130, 160, 60])
+    t_test = Table(test_rows, colWidths=[18, 105, 125, 150, 47])
     t_test.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), c_black),
         ('TEXTCOLOR', (0,0), (-1,0), c_white),
         ('GRID', (0,0), (-1,-1), 0.5, c_black),
-        ('TOPPADDING', (0,0), (-1,-1), 4),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('TOPPADDING', (0,0), (-1,-1), 3),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
         ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.white, colors.HexColor("#f8f8f8")]),
     ]))
     story.append(t_test)
-    story.append(Spacer(1, 14))
+    story.append(Spacer(1, 6))
 
     # =========================================================================
     # SECTIONS 14-18: ADVANTAGES, LIMITATIONS, CONCLUSION, WBS, REFERENCES
@@ -472,21 +547,21 @@ def build_pdf():
         [Paragraph("3", table_cell), Paragraph("<b>Chauhan Jaydip. P</b>", table_cell), Paragraph("260203020035", table_cell), Paragraph("Fintech Frontend UI/UX, Bootstrap 5 Layouts, Chart.js Visualizations & AJAX API Routing.", table_cell)],
         [Paragraph("4", table_cell), Paragraph("<b>Gohil Jignesh. P</b>", table_cell), Paragraph("260203020034", table_cell), Paragraph("Automated Triggers, Audit Security Trail, Comprehensive 12-Case Test Suite & Academic Report Documentation.", table_cell)],
     ]
-    t_wbs = Table(wbs_data, colWidths=[25, 140, 95, 190])
+    t_wbs = Table(wbs_data, colWidths=[20, 135, 90, 200])
     t_wbs.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), c_black),
         ('TEXTCOLOR', (0,0), (-1,0), c_white),
         ('BOX', (0,0), (-1,-1), 1, c_black),
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
-        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('TOPPADDING', (0,0), (-1,-1), 4),
         ('LEFTPADDING', (0,0), (-1,-1), 6),
         ('RIGHTPADDING', (0,0), (-1,-1), 6),
         ('INNERGRID', (0,0), (-1,-1), 0.5, c_black),
         ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.white, colors.HexColor("#f8f8f8")]),
     ]))
     story.append(t_wbs)
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 6))
 
     story.append(Paragraph("18. REFERENCES", h1_style))
     refs = [
