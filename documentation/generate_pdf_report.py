@@ -28,15 +28,15 @@ class NumberedCanvas(canvas.Canvas):
 
     def draw_page_decorations(self, page_count):
         if self._pageNumber == 1:
-            return # Skip cover page
+            return  # Skip cover page
 
         self.saveState()
         self.setFont("Helvetica", 8)
-        self.setFillColor(colors.HexColor("#64748b"))
+        self.setFillColor(colors.black)
 
         # Running Header
         self.drawString(54, 800, "Smart Banking Management System - Oracle SQL & PL/SQL Project Report")
-        self.setStrokeColor(colors.HexColor("#e2e8f0"))
+        self.setStrokeColor(colors.black)
         self.setLineWidth(0.75)
         self.line(54, 792, 541, 792)
 
@@ -60,39 +60,39 @@ def build_pdf():
 
     styles = getSampleStyleSheet()
     
-    # Custom Palette
-    c_primary = colors.HexColor("#1e3a8a") # Dark Blue
-    c_secondary = colors.HexColor("#0f172a") # Slate
-    c_accent = colors.HexColor("#2563eb") # Vibrant Blue
-    c_text = colors.HexColor("#334155")
-    c_bg_light = colors.HexColor("#f8fafc")
-    c_border = colors.HexColor("#cbd5e1")
+    # Monochrome Palette (Pure White & Black)
+    c_black = colors.black
+    c_white = colors.white
+    c_border = colors.black
+    c_grid = colors.HexColor("#333333")
+    c_header_bg = colors.black
+    c_sub_bg = colors.HexColor("#f2f2f2")
 
-    # Typography Styles
+    # Typography Styles - Pure Black Text
     title_style = ParagraphStyle(
         'CoverTitle', parent=styles['Normal'],
-        fontName='Helvetica-Bold', fontSize=26, leading=32,
-        textColor=c_primary, alignment=1, spaceAfter=15
+        fontName='Helvetica-Bold', fontSize=24, leading=30,
+        textColor=c_black, alignment=1, spaceAfter=12
     )
     subtitle_style = ParagraphStyle(
         'CoverSubtitle', parent=styles['Normal'],
-        fontName='Helvetica', fontSize=14, leading=18,
-        textColor=colors.HexColor("#475569"), alignment=1, spaceAfter=25
+        fontName='Helvetica', fontSize=13, leading=17,
+        textColor=c_black, alignment=1, spaceAfter=20
     )
     h1_style = ParagraphStyle(
         'SectionHeading', parent=styles['Normal'],
-        fontName='Helvetica-Bold', fontSize=15, leading=19,
-        textColor=c_primary, spaceBefore=14, spaceAfter=8, keepWithNext=True
+        fontName='Helvetica-Bold', fontSize=14, leading=18,
+        textColor=c_black, spaceBefore=14, spaceAfter=8, keepWithNext=True
     )
     h2_style = ParagraphStyle(
         'SubSectionHeading', parent=styles['Normal'],
-        fontName='Helvetica-Bold', fontSize=11, leading=15,
-        textColor=c_secondary, spaceBefore=10, spaceAfter=5, keepWithNext=True
+        fontName='Helvetica-Bold', fontSize=10.5, leading=14,
+        textColor=c_black, spaceBefore=10, spaceAfter=5, keepWithNext=True
     )
     body_style = ParagraphStyle(
         'ReportBody', parent=styles['Normal'],
         fontName='Helvetica', fontSize=9, leading=13.5,
-        textColor=c_text, spaceAfter=7
+        textColor=c_black, spaceAfter=7
     )
     body_bold = ParagraphStyle(
         'ReportBodyBold', parent=body_style,
@@ -101,37 +101,32 @@ def build_pdf():
     code_style = ParagraphStyle(
         'ReportCode', parent=styles['Normal'],
         fontName='Courier', fontSize=7.5, leading=9.5,
-        textColor=colors.HexColor("#0f172a"),
-        backColor=colors.HexColor("#f1f5f9"),
+        textColor=c_black,
+        backColor=colors.HexColor("#f8f8f8"),
         borderPadding=5, spaceAfter=6, keepWithNext=True
     )
     table_cell = ParagraphStyle(
         'TableCell', parent=styles['Normal'],
         fontName='Helvetica', fontSize=7.5, leading=10,
-        textColor=c_text
+        textColor=c_black
     )
     table_cell_bold = ParagraphStyle(
         'TableCellBold', parent=styles['Normal'],
         fontName='Helvetica-Bold', fontSize=7.5, leading=10,
-        textColor=colors.HexColor("#0f172a")
-    )
-    callout_style = ParagraphStyle(
-        'CalloutText', parent=styles['Normal'],
-        fontName='Helvetica-Oblique', fontSize=8.5, leading=12,
-        textColor=colors.HexColor("#1e40af")
+        textColor=c_black
     )
 
     story = []
 
     # =========================================================================
-    # SECTION 1: COVER PAGE
+    # SECTION 1: COVER PAGE (WHITE & BLACK THEME)
     # =========================================================================
-    story.append(Spacer(1, 25))
+    story.append(Spacer(1, 20))
     story.append(Paragraph("SMART BANKING MANAGEMENT SYSTEM", title_style))
     story.append(Paragraph("A Comprehensive Relational Database Architecture & PL/SQL Application", subtitle_style))
-    story.append(HRFlowable(width="80%", thickness=2.5, color=c_accent, spaceBefore=8, spaceAfter=18))
+    story.append(HRFlowable(width="85%", thickness=2, color=c_black, spaceBefore=6, spaceAfter=16))
     
-    story.append(Paragraph("<b>ACADEMIC GROUP PROJECT TEAM</b>", ParagraphStyle('GroupHead', parent=body_bold, alignment=1, fontSize=11, textColor=c_primary, spaceAfter=8)))
+    story.append(Paragraph("<b>ACADEMIC GROUP PROJECT TEAM</b>", ParagraphStyle('GroupHead', parent=body_bold, alignment=1, fontSize=11, textColor=c_black, spaceAfter=8)))
     
     students_data = [
         [Paragraph("<b>Sr.</b>", table_cell_bold), Paragraph("<b>Student Full Name</b>", table_cell_bold), Paragraph("<b>Enrollment Number</b>", table_cell_bold)],
@@ -142,14 +137,14 @@ def build_pdf():
     ]
     t_students = Table(students_data, colWidths=[35, 250, 165])
     t_students.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#e2e8f0")),
-        ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#94a3b8")),
+        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#f0f0f0")),
+        ('BOX', (0,0), (-1,-1), 1, c_black),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
         ('BOTTOMPADDING', (0,0), (-1,-1), 5),
         ('TOPPADDING', (0,0), (-1,-1), 5),
         ('LEFTPADDING', (0,0), (-1,-1), 8),
         ('RIGHTPADDING', (0,0), (-1,-1), 8),
-        ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
+        ('INNERGRID', (0,0), (-1,-1), 0.5, c_black),
     ]))
     story.append(t_students)
     story.append(Spacer(1, 14))
@@ -163,82 +158,24 @@ def build_pdf():
     ]
     t_meta = Table(meta_data, colWidths=[120, 330])
     t_meta.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#f8fafc")),
-        ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#cbd5e1")),
+        ('BACKGROUND', (0,0), (-1,-1), colors.white),
+        ('BOX', (0,0), (-1,-1), 1, c_black),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
         ('BOTTOMPADDING', (0,0), (-1,-1), 5),
         ('TOPPADDING', (0,0), (-1,-1), 5),
         ('LEFTPADDING', (0,0), (-1,-1), 10),
         ('RIGHTPADDING', (0,0), (-1,-1), 10),
-        ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
+        ('INNERGRID', (0,0), (-1,-1), 0.5, c_black),
     ]))
     story.append(t_meta)
     
-    story.append(Spacer(1, 20))
-    story.append(Paragraph("<b>Primary Architectural Focus:</b> Oracle Relational Schema, ACID Transactions, Atomic Transfers, Autonomous Triggers, Explicit & Parameterized Cursors, Package Architecture, and Audit Trails.", ParagraphStyle('CoverNote', parent=body_style, alignment=1, fontSize=8, textColor=colors.HexColor("#64748b"))))
+    story.append(Spacer(1, 18))
+    story.append(Paragraph("<b>Primary Architectural Focus:</b> Oracle Relational Schema, ACID Transactions, Atomic Transfers, Autonomous Triggers, Explicit & Parameterized Cursors, Package Architecture, and Audit Trails.", ParagraphStyle('CoverNote', parent=body_style, alignment=1, fontSize=8, textColor=c_black)))
     story.append(PageBreak())
 
     # =========================================================================
-    # SECTION 2: CERTIFICATE PAGE
-    # =========================================================================
-    story.append(Paragraph("DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING", ParagraphStyle('CertDept', parent=title_style, fontSize=14, leading=18)))
-    story.append(Paragraph("CERTIFICATE OF COMPLETION", ParagraphStyle('CertHead', parent=title_style, fontSize=18, leading=22, textColor=c_primary)))
-    story.append(HRFlowable(width="100%", thickness=1, color=c_border, spaceBefore=8, spaceAfter=18))
-    
-    cert_text = """
-    This is to certify that the mini-project entitled <b>"SMART BANKING MANAGEMENT SYSTEM"</b> submitted by the following group of students:
-    <br/><br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;<b>1. Vaghela Yagnadeepsinh.C</b> (Enrollment No: <b>260203030002</b>)<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;<b>2. Chudasama Krishnadeepsinh .S</b> (Enrollment No: <b>260203030001</b>)<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;<b>3. Chauhan Jaydip. P</b> (Enrollment No: <b>260203020035</b>)<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;<b>4. Gohil Jignesh. P</b> (Enrollment No: <b>260203020034</b>)<br/><br/>
-    in partial fulfillment for the award of the Degree of Bachelor of Technology in Computer Science & Engineering is a bona fide record 
-    of work carried out by them under supervision and guidance.
-    <br/><br/>
-    The database architecture, stored procedures, packages, triggers, cursors, and application interfaces have 
-    been evaluated, tested on Oracle Database, and found satisfactory.
-    """
-    story.append(Paragraph(cert_text, body_style))
-    story.append(Spacer(1, 45))
-
-    sig_data = [
-        [Paragraph("____________________________<br/><b>Project Guide / Faculty Mentor</b>", table_cell),
-         Paragraph("____________________________<br/><b>Head of Department (CSE)</b>", table_cell),
-         Paragraph("____________________________<br/><b>External Examiner</b>", table_cell)]
-    ]
-    t_sig = Table(sig_data, colWidths=[160, 160, 160])
-    t_sig.setStyle(TableStyle([('ALIGN', (0,0), (-1,-1), 'CENTER')]))
-    story.append(t_sig)
-    story.append(PageBreak())
-
-    # =========================================================================
-    # SECTION 3 & 4: ACKNOWLEDGEMENT & ABSTRACT
-    # =========================================================================
-    story.append(Paragraph("ACKNOWLEDGEMENT", h1_style))
-    story.append(Paragraph(
-        "We express our deepest gratitude to our faculty guide and the Department of Computer Science & Engineering "
-        "for their invaluable guidance, encouragement, and technical suggestions throughout the development of this "
-        "Oracle SQL and PL/SQL group mini project. Special thanks are extended to the lab administrators and faculty members "
-        "who provided access to the Oracle Database development environment and SQL*Plus tooling.", body_style
-    ))
-    story.append(Spacer(1, 10))
-
-    story.append(Paragraph("ABSTRACT", h1_style))
-    story.append(Paragraph(
-        "The <b>Smart Banking Management System</b> is an enterprise-grade financial management platform engineered "
-        "to demonstrate core and advanced Oracle Relational Database Management System (RDBMS) capabilities. Moving beyond "
-        "superficial CRUD implementations, the system models real-world banking operations—including multi-branch administration, "
-        "atomic fund transfers, reducing-balance loan amortization, automated KYC auditing, and high-performance statement generation. "
-        "The architecture is anchored on 11 normalized database tables (up to 3NF) with comprehensive primary, foreign, unique, "
-        "and check constraints. Core business rules are encapsulated entirely within Oracle PL/SQL stored procedures, user-defined "
-        "functions, autonomous triggers, and packages (<code>BANKING_PACKAGE</code> and <code>LOAN_PACKAGE</code>), enforcing "
-        "strict ACID transactional atomicity. A modern fintech web interface built with PHP (OCI8), Bootstrap 5, and Chart.js "
-        "communicates seamlessly with the database engine.", body_style
-    ))
-    story.append(PageBreak())
-
-    # =========================================================================
-    # SECTIONS 5-9: INTRODUCTION, PROBLEM STATEMENT, OBJECTIVES, EXISTING VS PROPOSED
+    # SECTION 2: INTRODUCTION & SYSTEM ARCHITECTURE (STARTS IMMEDIATELY AFTER COVER)
+    # (Certificate, Acknowledgement, and Abstract have been removed as requested)
     # =========================================================================
     story.append(Paragraph("1. INTRODUCTION", h1_style))
     story.append(Paragraph(
@@ -280,9 +217,9 @@ def build_pdf():
     ]
     t_comp = Table(comp_data, colWidths=[100, 180, 200])
     t_comp.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#1e3a8a")),
-        ('TEXTCOLOR', (0,0), (-1,0), colors.white),
-        ('GRID', (0,0), (-1,-1), 0.5, c_border),
+        ('BACKGROUND', (0,0), (-1,0), c_black),
+        ('TEXTCOLOR', (0,0), (-1,0), c_white),
+        ('GRID', (0,0), (-1,-1), 0.5, c_black),
         ('TOPPADDING', (0,0), (-1,-1), 5),
         ('BOTTOMPADDING', (0,0), (-1,-1), 5),
     ]))
@@ -290,7 +227,7 @@ def build_pdf():
     story.append(PageBreak())
 
     # =========================================================================
-    # SECTIONS 10-12: TECH STACK, ARCHITECTURE, DATABASE DESIGN
+    # SECTION 5: TECH STACK, ARCHITECTURE, DATABASE DESIGN
     # =========================================================================
     story.append(Paragraph("5. TECHNOLOGY STACK & ARCHITECTURE", h1_style))
     story.append(Paragraph(
@@ -308,7 +245,7 @@ def build_pdf():
     ))
 
     # =========================================================================
-    # SECTION 13: ER DIAGRAM
+    # SECTION 7: ER DIAGRAM
     # =========================================================================
     story.append(Paragraph("7. ENTITY-RELATIONSHIP (ER) DIAGRAM", h1_style))
     story.append(Paragraph(
@@ -320,7 +257,7 @@ def build_pdf():
     story.append(PageBreak())
 
     # =========================================================================
-    # SECTION 14: TABLE STRUCTURE EXPLANATION
+    # SECTION 8: TABLE STRUCTURE EXPLANATION
     # =========================================================================
     story.append(Paragraph("8. DETAILED TABLE STRUCTURE SPECIFICATIONS", h1_style))
     tables_meta = [
@@ -342,7 +279,7 @@ def build_pdf():
     story.append(PageBreak())
 
     # =========================================================================
-    # SECTIONS 15 & 16: SQL & PL/SQL CONCEPTS IMPLEMENTED
+    # SECTIONS 9 & 10: SQL & PL/SQL CONCEPTS IMPLEMENTED
     # =========================================================================
     story.append(Paragraph("9. ORACLE SQL CONCEPTS IMPLEMENTED", h1_style))
     story.append(Paragraph(
@@ -378,10 +315,11 @@ def build_pdf():
     ]
     for p_title, p_desc in plsql_blocks:
         story.append(Paragraph(f"• <b>{p_title}:</b> {p_desc}", body_style))
+
     story.append(PageBreak())
 
     # =========================================================================
-    # SECTION 17: CONCEPT MAPPING TABLE (MANDATORY REQUIREMENT)
+    # SECTION 11: CONCEPT MAPPING TABLE
     # =========================================================================
     story.append(Paragraph("11. SQL & PL/SQL CONCEPT MAPPING TABLE", h1_style))
     story.append(Paragraph(
@@ -418,18 +356,18 @@ def build_pdf():
     ]
     t_map = Table(mapping_rows, colWidths=[80, 110, 100, 190])
     t_map.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#1e3a8a")),
-        ('TEXTCOLOR', (0,0), (-1,0), colors.white),
-        ('GRID', (0,0), (-1,-1), 0.5, c_border),
+        ('BACKGROUND', (0,0), (-1,0), c_black),
+        ('TEXTCOLOR', (0,0), (-1,0), c_white),
+        ('GRID', (0,0), (-1,-1), 0.5, c_black),
         ('TOPPADDING', (0,0), (-1,-1), 3.5),
         ('BOTTOMPADDING', (0,0), (-1,-1), 3.5),
-        ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.white, colors.HexColor("#f8fafc")]),
+        ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.white, colors.HexColor("#f8f8f8")]),
     ]))
     story.append(t_map)
     story.append(PageBreak())
 
     # =========================================================================
-    # SECTIONS 18 & 19: APPLICATION MODULES & ACTUAL SCREENSHOTS
+    # SECTION 12: APPLICATION MODULES & ACTUAL SCREENSHOTS
     # =========================================================================
     story.append(Paragraph("12. WEB APPLICATION MODULES & REAL SCREENSHOTS", h1_style))
     story.append(Paragraph(
@@ -459,7 +397,7 @@ def build_pdf():
     story.append(PageBreak())
 
     # =========================================================================
-    # SECTION 20: TESTING AND VERIFICATION RESULTS
+    # SECTION 13: TESTING AND VERIFICATION RESULTS
     # =========================================================================
     story.append(Paragraph("13. TESTING AND VERIFICATION RESULTS", h1_style))
     story.append(Paragraph(
@@ -469,33 +407,33 @@ def build_pdf():
 
     test_rows = [
         [Paragraph("<b>#</b>", table_cell_bold), Paragraph("<b>Test Case Name</b>", table_cell_bold), Paragraph("<b>Input Condition</b>", table_cell_bold), Paragraph("<b>Expected Result</b>", table_cell_bold), Paragraph("<b>Status</b>", table_cell_bold)],
-        [Paragraph("1", table_cell), Paragraph("Successful Deposit", table_cell), Paragraph("Acc: SB1001002001, Amt: ₹5,000", table_cell), Paragraph("Balance increases by ₹5,000; Txn logged", table_cell), Paragraph("<font color='green'><b>PASS</b></font>", table_cell)],
-        [Paragraph("2", table_cell), Paragraph("Successful Withdrawal", table_cell), Paragraph("Acc: SB1001002001, Amt: ₹2,000", table_cell), Paragraph("Balance reduces by ₹2,000; Txn logged", table_cell), Paragraph("<font color='green'><b>PASS</b></font>", table_cell)],
-        [Paragraph("3", table_cell), Paragraph("Insufficient Balance", table_cell), Paragraph("Acc: SB1001002001, Amt: ₹1,000,000", table_cell), Paragraph("Rejected with INSUFFICIENT_FUNDS error", table_cell), Paragraph("<font color='green'><b>PASS</b></font>", table_cell)],
-        [Paragraph("4", table_cell), Paragraph("Atomic Money Transfer", table_cell), Paragraph("Transfer ₹3,500 between 2 accounts", table_cell), Paragraph("Sender debited, receiver credited; 2 ledger entries", table_cell), Paragraph("<font color='green'><b>PASS</b></font>", table_cell)],
-        [Paragraph("5", table_cell), Paragraph("Invalid Account Transfer", table_cell), Paragraph("Beneficiary: 'NON_EXISTENT_ACC'", table_cell), Paragraph("Transfer rejected; zero funds deducted", table_cell), Paragraph("<font color='green'><b>PASS</b></font>", table_cell)],
-        [Paragraph("6", table_cell), Paragraph("Duplicate Account No.", table_cell), Paragraph("Insert duplicate 'SB1001002001'", table_cell), Paragraph("Blocked by ORA-00001 (Unique constraint)", table_cell), Paragraph("<font color='green'><b>PASS</b></font>", table_cell)],
-        [Paragraph("7", table_cell), Paragraph("Account Dormancy Guard", table_cell), Paragraph("Debit on Dormant Acc SB1003002010", table_cell), Paragraph("Withdrawal blocked due to dormant status", table_cell), Paragraph("<font color='green'><b>PASS</b></font>", table_cell)],
-        [Paragraph("8", table_cell), Paragraph("Loan Approval & Credit", table_cell), Paragraph("Apply ₹100,000 loan & approve", table_cell), Paragraph("Loan approved; ₹100k credited to patron account", table_cell), Paragraph("<font color='green'><b>PASS</b></font>", table_cell)],
-        [Paragraph("9", table_cell), Paragraph("EMI Formula Precision", table_cell), Paragraph("₹1,000,000 @ 10% APR over 120 mos", table_cell), Paragraph("Exact monthly EMI = ₹13,215.07", table_cell), Paragraph("<font color='green'><b>PASS</b></font>", table_cell)],
-        [Paragraph("10", table_cell), Paragraph("Trigger Timestamp Touch", table_cell), Paragraph("UPDATE on BANK_ACCOUNTS", table_cell), Paragraph("TRG_ACCOUNTS_BIU updates UPDATED_AT", table_cell), Paragraph("<font color='green'><b>PASS</b></font>", table_cell)],
-        [Paragraph("11", table_cell), Paragraph("Trigger Audit Capture", table_cell), Paragraph("DML executed on financial tables", table_cell), Paragraph("AUDIT_LOGS table captures user, IP, and values", table_cell), Paragraph("<font color='green'><b>PASS</b></font>", table_cell)],
-        [Paragraph("12", table_cell), Paragraph("Transaction Rollback", table_cell), Paragraph("Failure during multi-step operation", table_cell), Paragraph("ROLLBACK executed; zero phantom side effects", table_cell), Paragraph("<font color='green'><b>PASS</b></font>", table_cell)]
+        [Paragraph("1", table_cell), Paragraph("Successful Deposit", table_cell), Paragraph("Acc: SB1001002001, Amt: ₹5,000", table_cell), Paragraph("Balance increases by ₹5,000; Txn logged", table_cell), Paragraph("<b>PASS</b>", table_cell)],
+        [Paragraph("2", table_cell), Paragraph("Successful Withdrawal", table_cell), Paragraph("Acc: SB1001002001, Amt: ₹2,000", table_cell), Paragraph("Balance reduces by ₹2,000; Txn logged", table_cell), Paragraph("<b>PASS</b>", table_cell)],
+        [Paragraph("3", table_cell), Paragraph("Insufficient Balance", table_cell), Paragraph("Acc: SB1001002001, Amt: ₹1,000,000", table_cell), Paragraph("Rejected with INSUFFICIENT_FUNDS error", table_cell), Paragraph("<b>PASS</b>", table_cell)],
+        [Paragraph("4", table_cell), Paragraph("Atomic Money Transfer", table_cell), Paragraph("Transfer ₹3,500 between 2 accounts", table_cell), Paragraph("Sender debited, receiver credited; 2 ledger entries", table_cell), Paragraph("<b>PASS</b>", table_cell)],
+        [Paragraph("5", table_cell), Paragraph("Invalid Account Transfer", table_cell), Paragraph("Beneficiary: 'NON_EXISTENT_ACC'", table_cell), Paragraph("Transfer rejected; zero funds deducted", table_cell), Paragraph("<b>PASS</b>", table_cell)],
+        [Paragraph("6", table_cell), Paragraph("Duplicate Account No.", table_cell), Paragraph("Insert duplicate 'SB1001002001'", table_cell), Paragraph("Blocked by ORA-00001 (Unique constraint)", table_cell), Paragraph("<b>PASS</b>", table_cell)],
+        [Paragraph("7", table_cell), Paragraph("Account Dormancy Guard", table_cell), Paragraph("Debit on Dormant Acc SB1003002010", table_cell), Paragraph("Withdrawal blocked due to dormant status", table_cell), Paragraph("<b>PASS</b>", table_cell)],
+        [Paragraph("8", table_cell), Paragraph("Loan Approval & Credit", table_cell), Paragraph("Apply ₹100,000 loan & approve", table_cell), Paragraph("Loan approved; ₹100k credited to patron account", table_cell), Paragraph("<b>PASS</b>", table_cell)],
+        [Paragraph("9", table_cell), Paragraph("EMI Formula Precision", table_cell), Paragraph("₹1,000,000 @ 10% APR over 120 mos", table_cell), Paragraph("Exact monthly EMI = ₹13,215.07", table_cell), Paragraph("<b>PASS</b>", table_cell)],
+        [Paragraph("10", table_cell), Paragraph("Trigger Timestamp Touch", table_cell), Paragraph("UPDATE on BANK_ACCOUNTS", table_cell), Paragraph("TRG_ACCOUNTS_BIU updates UPDATED_AT", table_cell), Paragraph("<b>PASS</b>", table_cell)],
+        [Paragraph("11", table_cell), Paragraph("Trigger Audit Capture", table_cell), Paragraph("DML executed on financial tables", table_cell), Paragraph("AUDIT_LOGS table captures user, IP, and values", table_cell), Paragraph("<b>PASS</b>", table_cell)],
+        [Paragraph("12", table_cell), Paragraph("Transaction Rollback", table_cell), Paragraph("Failure during multi-step operation", table_cell), Paragraph("ROLLBACK executed; zero phantom side effects", table_cell), Paragraph("<b>PASS</b>", table_cell)]
     ]
     t_test = Table(test_rows, colWidths=[20, 110, 130, 160, 60])
     t_test.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#1e3a8a")),
-        ('TEXTCOLOR', (0,0), (-1,0), colors.white),
-        ('GRID', (0,0), (-1,-1), 0.5, c_border),
+        ('BACKGROUND', (0,0), (-1,0), c_black),
+        ('TEXTCOLOR', (0,0), (-1,0), c_white),
+        ('GRID', (0,0), (-1,-1), 0.5, c_black),
         ('TOPPADDING', (0,0), (-1,-1), 4),
         ('BOTTOMPADDING', (0,0), (-1,-1), 4),
-        ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.white, colors.HexColor("#f8fafc")]),
+        ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.white, colors.HexColor("#f8f8f8")]),
     ]))
     story.append(t_test)
     story.append(Spacer(1, 14))
 
     # =========================================================================
-    # SECTIONS 21-25: ADVANTAGES, LIMITATIONS, FUTURE SCOPE, CONCLUSION, REFERENCES
+    # SECTIONS 14-18: ADVANTAGES, LIMITATIONS, CONCLUSION, WBS, REFERENCES
     # =========================================================================
     story.append(Paragraph("14. ADVANTAGES OF THE SYSTEM", h1_style))
     advs = [
@@ -536,14 +474,16 @@ def build_pdf():
     ]
     t_wbs = Table(wbs_data, colWidths=[25, 140, 95, 190])
     t_wbs.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#e2e8f0")),
-        ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#cbd5e1")),
+        ('BACKGROUND', (0,0), (-1,0), c_black),
+        ('TEXTCOLOR', (0,0), (-1,0), c_white),
+        ('BOX', (0,0), (-1,-1), 1, c_black),
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
         ('BOTTOMPADDING', (0,0), (-1,-1), 5),
         ('TOPPADDING', (0,0), (-1,-1), 5),
         ('LEFTPADDING', (0,0), (-1,-1), 6),
         ('RIGHTPADDING', (0,0), (-1,-1), 6),
-        ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
+        ('INNERGRID', (0,0), (-1,-1), 0.5, c_black),
+        ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.white, colors.HexColor("#f8f8f8")]),
     ]))
     story.append(t_wbs)
     story.append(Spacer(1, 10))
